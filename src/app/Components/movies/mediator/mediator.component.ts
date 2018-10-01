@@ -8,7 +8,7 @@ import { MessageBoxComponent } from 'src/app/Components/message-box/message-box.
 @Component({
   selector: 'app-mediator',
   templateUrl: './mediator.component.html',
-  styleUrls: ['./mediator.component.css']
+
 })
 export class MediatorComponent implements OnInit {
   Movies : any [];
