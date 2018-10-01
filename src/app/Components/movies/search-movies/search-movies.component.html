@@ -1,0 +1,45 @@
+
+<h2>Movies Section</h2>
+<div class="container">
+  <div class="row">
+    <div class="col-xs-12">
+        <p>You can now edit the top 10 Avengers movie of all time</p>
+        <p>  <button class="btn btn-sm btn-outline-primary" (click)="OpenAddModal()">Add New Movie</button></p>
+        <div class="table-responsive">
+       
+        <table class="table table-bordred table-striped" style="  border-width:5px;  
+        border-style:outset; ">
+          <thead>
+            <tr>
+              <th>Index</th>
+              <th>Title</th>
+              <th>Year</th>
+              <th></th>
+              <th></th>
+            </tr>
+          </thead>
+          
+          <tbody>
+            
+              <tr scope="row" *ngFor="let Movie of Movies; let i = index">
+                <td>{{i+1}}</td>  
+                <td>{{Movie.Title | JustEnglish | CapitalLetters}}</td>
+                <td>{{Movie.Year}}</td>
+
+                <td><i class="fa fa-1x fa-pencil hover" (click)="OpenEditModel([Movie.imdbID])"></i> </td>
+                <td><i class="fa fa-1x fa-trash hover" (click)="OpenDeleteModal([Movie.Title])"></i></td>
+              </tr>
+           
+          </tbody>
+          <tfoot>
+            <tr>
+              <td colspan="5" class="text-center"></td>
+            </tr>
+          </tfoot>
+        </table>
+      </div><!--end of .table-responsive-->
+    </div>
+  </div>
+</div>
+
+
