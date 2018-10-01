@@ -1,62 +1,62 @@
  
   <div class="modal-header">
-    <h4 class="modal-title">Movie Details</h4>
-    <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close('Close click')">
-        <span aria-hidden="true">&times;</span>
-      </button>
-  </div>
- 
-  <form [formGroup]="form">
-    <div class="modal-body">
+      <h4 class="modal-title">Movie Details</h4>
+      <button type="button" class="close" data-dismiss="modal" aria-label="Close" (click)="activeModal.close('Close click')">
+          <span aria-hidden="true">&times;</span>
+        </button>
+    </div>
+   
+    <form [formGroup]="form">
+      <div class="modal-body">
+          <div class="form-group">
+              All fields are mandatory
+          </div>
+        <div class="form-group" *ngIf="MovieDetails?.imdbID">
+          <label class="col-form-label" for="Id">Id -  {{MovieDetails?.imdbID}}</label>
+  
+        </div>
         <div class="form-group">
-            All fields are mandatory
+          <label class="col-form-label" for="Title">Title</label>
+          <input id="Title" formControlName="Title" (change)="checkIfExsist(Title)" [ngModel]="MovieDetails?.Title | JustEnglish | CapitalLetters" type="text" (change)="checkIfExsist(Title)"
+            class="form-control">
+          
+            <div class="alert alert-danger" *ngIf="!Year.pristine && Title?.errors?.CustomRequired">Title is Required</div>
+            <div class="alert alert-danger" *ngIf="IsFileExsit">This movie title is already exsist</div>
+          
         </div>
-      <div class="form-group" *ngIf="MovieDetails?.imdbID">
-        <label class="col-form-label" for="Id">Id -  {{MovieDetails?.imdbID}}</label>
-
-      </div>
-      <div class="form-group">
-        <label class="col-form-label" for="Title">Title</label>
-        <input id="Title" formControlName="Title" (change)="checkIfExsist(Title)" [ngModel]="MovieDetails?.Title | CapitalLetters" type="text" (change)="checkIfExsist(Title)"
-          class="form-control">
-        <div *ngIf="!Title.pristine && !Title.valid ">
-          <div class="alert alert-danger" *ngIf="Title.errors.CustomRequired">Title is Required</div>
-          <div class="alert alert-danger" *ngIf="IsFileExsit">This movie Title is already exsist</div>
+        <div class="form-group">
+          <label class="col-form-label" for="Year">Year</label>
+          <input id="Year" formControlName="Year" [ngModel]="MovieDetails?.Year" type="text" class="form-control">
+          <div *ngIf="!Year.pristine && !Year.valid ">
+            <div class="alert alert-danger" *ngIf="Year.errors.CustomRequired"> Year is Required</div>
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="col-form-label" for="Year">Year</label>
-        <input id="Year" formControlName="Year" [ngModel]="MovieDetails?.Year" type="text" class="form-control">
-        <div *ngIf="!Year.pristine && !Year.valid ">
-          <div class="alert alert-danger" *ngIf="Year.errors.CustomRequired"> Year is Required</div>
+        <div class="form-group">
+          <label class="col-form-label" for="Runtime">Runtime</label>
+          <input id="Runtime" formControlName="Runtime" [ngModel]="MovieDetails?.Runtime" type="text" class="form-control">
+          <div *ngIf="!Runtime.pristine && !Runtime.valid ">
+            <div class="alert alert-danger" *ngIf="Runtime.errors.CustomRequired">Runtime is Required</div>
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="col-form-label" for="Runtime">Runtime</label>
-        <input id="Runtime" formControlName="Runtime" [ngModel]="MovieDetails?.Runtime" type="text" class="form-control">
-        <div *ngIf="!Runtime.pristine && !Runtime.valid ">
-          <div class="alert alert-danger" *ngIf="Runtime.errors.CustomRequired">Runtime is Required</div>
+        <div class="form-group">
+          <label class="col-form-label" for="Runtime">Genre</label>
+          <input id="Genre" formControlName="Genre" [ngModel]="MovieDetails?.Genre" type="text" class="form-control">
+          <div *ngIf="!Genre.pristine && !Genre.valid ">
+            <div class="alert alert-danger" *ngIf="Genre.errors.CustomRequired">Genre is Required</div>
+          </div>
         </div>
-      </div>
-      <div class="form-group">
-        <label class="col-form-label" for="Runtime">Genre</label>
-        <input id="Genre" formControlName="Genre" [ngModel]="MovieDetails?.Genre" type="text" class="form-control">
-        <div *ngIf="!Genre.pristine && !Genre.valid ">
-          <div class="alert alert-danger" *ngIf="Genre.errors.CustomRequired">Genre is Required</div>
+        <div class="form-group">
+          <label class="col-form-label" for="Runtime">Director</label>
+          <input id="Director" formControlName="Director" [ngModel]="MovieDetails?.Director" class="form-control">
+          <div *ngIf="!Director.pristine && !Director.valid">
+            <div class="alert alert-danger" *ngIf="Genre.errors.CustomRequired">Director is Required</div>
+          </div>
         </div>
+  
       </div>
-      <div class="form-group">
-        <label class="col-form-label" for="Runtime">Director</label>
-        <input id="Director" formControlName="Director" [ngModel]="MovieDetails?.Director" class="form-control">
-        <div *ngIf="!Director.pristine && !Director.valid">
-          <div class="alert alert-danger" *ngIf="Genre.errors.CustomRequired">Director is Required</div>
-        </div>
+      <div class="modal-footer">
+        <button class="btn btn-primary" type="submit" (click)="onSubmit()">Save Movie</button>
+        <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Cancel</button>
       </div>
-
-    </div>
-    <div class="modal-footer">
-      <button class="btn btn-primary" type="submit" (click)="onSubmit()">Save Movie</button>
-      <button type="button" class="btn btn-primary" (click)="activeModal.close('Close click')">Cancel</button>
-    </div>
-  </form>
- 
+    </form>
+   

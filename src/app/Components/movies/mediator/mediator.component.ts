@@ -7,12 +7,12 @@ import { MessageBoxComponent } from 'src/app/Components/message-box/message-box.
 
 @Component({
   selector: 'app-mediator',
-  templateUrl: './mediator.component.html'
- 
+  templateUrl: './mediator.component.html',
+  styleUrls: ['./mediator.component.css']
 })
 export class MediatorComponent implements OnInit {
-
-  constructor(private modalService: NgbModal,private MessageBoxComponent: NgbModal, private moviesService: MoviesService) {
+  Movies : any [];
+  constructor(private modalService: NgbModal, private MessageBoxComponent: NgbModal, private moviesService: MoviesService) {
   }
 
   ngOnInit() {
@@ -21,22 +21,29 @@ export class MediatorComponent implements OnInit {
     this.GetMovie(data);
   }
 
+  GetMovies() {
+    this.moviesService.HttpGetMoviesByTitle("Avengers")
+    .subscribe(res => 
+      {
+        this.Movies = res;
+      });
+  }
+
+
   OpenModal(data) {
-       const modalRef = this.modalService.open(MovieComponent);
-    modalRef.componentInstance.MovieDetails =  "";
+    const modalRef = this.modalService.open(MovieComponent);
+    modalRef.componentInstance.MovieDetails = "";
   }
 
   OpenDeleteModal(data) {
     const modalRef = this.modalService.open(MessageBoxComponent);
-    modalRef.componentInstance.Text =  "You are about to delete " +data ;
- 
+    modalRef.componentInstance.Text = "You are about to delete " + data;
   }
 
   private GetMovie(id) {
-    const modalRef = this.modalService.open(MovieComponent);
     let result = this.moviesService.HttpGetMoviesById(id)
-      .then(function (fulfilled) {
-        
+      .then((fulfilled: any) => {
+        const modalRef = this.modalService.open(MovieComponent);
         modalRef.componentInstance.MovieDetails = fulfilled;
       })
       .catch(function (error) {

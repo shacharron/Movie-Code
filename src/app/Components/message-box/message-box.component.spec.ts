@@ -1,6 +1,7 @@
 import { async, ComponentFixture, TestBed } from '@angular/core/testing';
-
+import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageBoxComponent } from './message-box.component';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 describe('MessageBoxComponent', () => {
   let component: MessageBoxComponent;
@@ -8,7 +9,8 @@ describe('MessageBoxComponent', () => {
 
   beforeEach(async(() => {
     TestBed.configureTestingModule({
-      declarations: [ MessageBoxComponent ]
+      declarations: [ MessageBoxComponent ],
+      imports: [ NgbModule.forRoot()]
     })
     .compileComponents();
   }));

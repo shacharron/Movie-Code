@@ -7,6 +7,7 @@ import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
 import { MessageBoxComponent } from 'src/app/Components/message-box/message-box.component';
 import { Output } from '@angular/core';
 import { EventEmitter } from '@angular/core';
+import { Input } from '@angular/core';
 
 @Component({
   selector: 'app-search-movies',
@@ -15,16 +16,17 @@ import { EventEmitter } from '@angular/core';
 })
 
 export class SearchMoviesComponent implements OnInit {
-  Movies: any[];
+ 
   res: any;
   @Output() Edit = new EventEmitter();
   @Output() Delete = new EventEmitter();
   @Output() Add = new EventEmitter();
+  @Output() Get = new EventEmitter();
+  @Input()  Movies : any [];
   constructor(private modalService: NgbModal, private moviesService: MoviesService) { }
 
   ngOnInit() {
-    this.moviesService.HttpGetMoviesByTitle("Avengers")
-      .subscribe(res => this.Movies = res);
+    this.GetMovies();
   }
   OpenAddModal() {
     this.Add.emit();
@@ -35,5 +37,8 @@ export class SearchMoviesComponent implements OnInit {
 
   OpenEditModel(id) {
     this.Edit.emit(id);
+  }
+  GetMovies() {
+    this.Get.emit();
   }
 }

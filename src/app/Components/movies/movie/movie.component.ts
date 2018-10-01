@@ -15,8 +15,9 @@ import { MovieValidators } from 'src/app/Validators/Movie.Validators';
 export class MovieComponent {
 
   @Input() MovieDetails;
-  IsFileExsit: boolean = false;
+  IsFileExsit: boolean ;
   form: FormGroup;
+
   constructor(public activeModal: NgbActiveModal, private moviesService: MoviesService, fb: FormBuilder) {
     this.form = fb.group({
       Title: ["", MovieValidators.CustomRequired],
@@ -66,7 +67,9 @@ export class MovieComponent {
   checkIfExsist(title) {
     let result = this.moviesService.HttpGetMovieByTitle(title.value)
       .then((fulfilled : any ) => {
+        
         fulfilled.Response ==  "False" ? this.IsFileExsit = false  :this.IsFileExsit = true ;
+        
 
       })
       .catch(function (error) {
